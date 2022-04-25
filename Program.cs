@@ -221,9 +221,7 @@ namespace Console_Crossing
             int[] nookSell = new int[100];
             int[] nookBuy = new int[100];
             LoadItems(items, nookBuy, nookSell);
-            Console.WriteLine(nookSell[0]);
-            Console.WriteLine(nookBuy[0]);
-            System.Console.WriteLine($"Welcome, {character[1]}!");
+            System.Console.WriteLine($"Welcome, {character[1]}! I hope you're having a wonderful day!");
             userInput = "";
             while (userInput != "3")
             {
