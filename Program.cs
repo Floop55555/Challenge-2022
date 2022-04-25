@@ -753,7 +753,7 @@ namespace Console_Crossing
                         Console.Clear();
                         break;
                     case "2":
-                        PlantTrees(plantedTrees);
+                        PlantTrees(plantedTrees, pockets);
                         FruitMenu();
                         userInput = Console.ReadLine();
                         Console.Clear();
@@ -896,33 +896,42 @@ namespace Console_Crossing
                 AddInventory(pockets, temp);
             }
         }
-        static void PlantTrees(FruitTrees[] plantedTrees)
+        static void PlantTrees(FruitTrees[] plantedTrees, string [] pocket)
         {
-            int space = SearchSpace(plantedTrees);
-            if (space != -1)
+            int pocketPosition= SearchPocket(pocket, "sapling");
+            if ( pocketPosition!= -1)
             {
-                string[] types = new string[10];
-                int count = GetAllFish(types, "fruittrees.txt");
-                // for (int i = 0; i < count; i++)
-                // {
-                //     System.Console.WriteLine(types[i]);
-                // }
-                Random r = new Random();
-                int treeType = r.Next(0, 11);
-                int[] temp = new int[6];
-                GetDate(temp);
-                FruitTrees f = new FruitTrees();
-                f.SetTreeType(types[treeType]);
-                f.SetDay(temp[2]);
-                f.SetMonth(temp[1]);
-                f.SetYear(temp[0]);
-                f.SetExists(true);
-                plantedTrees[space] = f;
-                System.Console.WriteLine($"Yes! I planted my sapling. I think it will become a {plantedTrees[space].GetTreeType()} tree!");
+                pocket[pocketPosition] = null;
+                int space = SearchSpace(plantedTrees);
+                if (space != -1)
+                {
+                    string[] types = new string[10];
+                    int count = GetAllFish(types, "fruittrees.txt");
+                    // for (int i = 0; i < count; i++)
+                    // {
+                    //     System.Console.WriteLine(types[i]);
+                    // }
+                    Random r = new Random();
+                    int treeType = r.Next(0, 11);
+                    int[] temp = new int[6];
+                    GetDate(temp);
+                    FruitTrees f = new FruitTrees();
+                    f.SetTreeType(types[treeType]);
+                    f.SetDay(temp[2]);
+                    f.SetMonth(temp[1]);
+                    f.SetYear(temp[0]);
+                    f.SetExists(true);
+                    plantedTrees[space] = f;
+                    System.Console.WriteLine($"Yes! I planted my sapling. I think it will become a {plantedTrees[space].GetTreeType()} tree!");
+                }
+                else
+                {
+                    System.Console.WriteLine("Oops, I don't have any more room in the orchard. Cut down some trees if you want to make space");
+                }
             }
             else
             {
-                System.Console.WriteLine("Oops, I don't have any more room in the orchard. Cut down some trees if you want to make space");
+                System.Console.WriteLine("I need a Sapling...");
             }
         }
         static void DigTrees(FruitTrees[] plantedTrees)
