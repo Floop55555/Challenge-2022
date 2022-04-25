@@ -12,7 +12,7 @@ namespace Console_Crossing
             int[] date = new int[6];
             string[] pocket = new string[32];
             string[] characterData = new string[7];
-            int bells = 0;
+            int[] bells = new[] { 0 };
             //0: Placeholder
             //1: Player Name
             //2: he/she/they
@@ -33,10 +33,10 @@ namespace Console_Crossing
                 ObtainCharacterData(characterData);
             }
             GetDate(date);
-            GetPocket(pocket, ref bells);
+            GetPocket(pocket, bells);
             GreetPlayer(date, characterData);
-            GameRoute(date, characterData, pocket, ref bells);
-            SavePocket(pocket, ref bells);
+            GameRoute(date, characterData, pocket, bells);
+            SavePocket(pocket, bells);
         }
         //Start Game
         static void ObtainCharacterData(string[] characterData)
@@ -109,7 +109,7 @@ namespace Console_Crossing
             Console.ReadKey();
             Console.Clear();
         }
-        static void GetPocket(string[] pocket, ref int bells)
+        static void GetPocket(string[] pocket, int[] bells)
         {
             StreamReader inFile = new StreamReader("pocket.txt");
             string line = inFile.ReadLine();
@@ -118,11 +118,11 @@ namespace Console_Crossing
                 pocket[i] = line;
                 line = inFile.ReadLine();
             }
-            bells = int.Parse(line);
+            bells[0] = int.Parse(line);
             inFile.Close();
         }
         //Save Game
-        static void SavePocket(string[] pocket, ref int bells)
+        static void SavePocket(string[] pocket, int[] bells)
         {
             StreamWriter inFile = new StreamWriter("pocket.txt");
             string line = pocket[0];
@@ -130,11 +130,11 @@ namespace Console_Crossing
             {
                 inFile.WriteLine(pocket[i]);
             }
-            inFile.Write(bells);
+            inFile.Write(bells[0]);
             inFile.Close();
         }
         //Game Route
-        static void GameRoute(int[] date, string[] character, string[] pocket, ref int bells)
+        static void GameRoute(int[] date, string[] character, string[] pocket, int[] bells)
         {
             string userInput = "";
             while (userInput != "5")
@@ -147,20 +147,21 @@ namespace Console_Crossing
                 switch (userInput)
                 {
                     case "1":
-                        //if (date[4] < 22 && date[4] > 8)
-                        //{
-                        Market(date, character, pocket, ref bells);
-                        //}
-                        //else
-                        // {
-                        //     System.Console.WriteLine("Hmmm, what is this?");
-                        //     System.Console.WriteLine("Dear Valued Customers: We are closed for the day. Come visit us when we");
-                        //     System.Console.WriteLine("re-open tommorrow at 8 a.m. Thank You!");
-                        //     System.Console.WriteLine();
-                        //     System.Console.WriteLine("That's right, they are only open from 8 a.m. to 10 p.m...");
-                        //     System.Console.WriteLine("(Press any button to return to town)");
-                        //     Console.ReadKey();
-                        // }
+                        if (date[4] < 22 && date[4] > 8)
+                        {
+                            Market(date, character, pocket, bells);
+                        }
+                        else
+                        {
+                            System.Console.WriteLine("Hmmm, what is this?");
+                            System.Console.WriteLine("Dear Valued Customers: We are closed for the day. Come visit us when we");
+                            System.Console.WriteLine("re-open tommorrow at 8 a.m. Thank You!");
+                            System.Console.WriteLine();
+                            System.Console.WriteLine("That's right, they are only open from 8 a.m. to 10 p.m...");
+                            System.Console.WriteLine("(Press any button to return to town)");
+                            Console.ReadKey();
+                            Console.Clear();
+                        }
                         break;
                     case "2":
                         FishingRoute(date, character, pocket);
@@ -189,7 +190,7 @@ namespace Console_Crossing
             System.Console.WriteLine();
         }
         //Nooklings
-        static void Market(int[] date, string[] character, string[] pocket, ref int bells)
+        static void Market(int[] date, string[] character, string[] pocket, int[] bells)
         {
             DateTime localDate = DateTime.Now;
             string userInput = "";
@@ -221,7 +222,9 @@ namespace Console_Crossing
             int[] nookSell = new int[100];
             int[] nookBuy = new int[100];
             LoadItems(items, nookBuy, nookSell);
+            Console.ForegroundColor= ConsoleColor.Green;
             System.Console.WriteLine($"Welcome, {character[1]}! I hope you're having a wonderful day!");
+            Console.ResetColor();
             userInput = "";
             while (userInput != "3")
             {
@@ -231,16 +234,20 @@ namespace Console_Crossing
                 switch (userInput)
                 {
                     case "1":
-                        BuyItem(pocket, items, nookSell, ref bells);
+                        BuyItem(pocket, items, nookSell, bells);
                         break;
                     case "2":
-                        SellItem(pocket, items, nookBuy, ref bells);
+                        SellItem(pocket, items, nookBuy, bells);
                         break;
                     case "3":
+                        Console.ForegroundColor= ConsoleColor.Green;
                         System.Console.WriteLine("Come back soon!");
+                        Console.ResetColor();
                         break;
                     default:
+                    Console.ForegroundColor= ConsoleColor.Green;
                         System.Console.WriteLine("Sorry, I'm not sure I understand...");
+                        Console.ResetColor();
                         break;
                 }
             }
@@ -263,32 +270,42 @@ namespace Console_Crossing
         }
         static void MarketMenu()
         {
+            Console.ForegroundColor= ConsoleColor.Green;
             System.Console.WriteLine("What can we do for you?");
+            Console.ResetColor();
             System.Console.WriteLine("1. What are you selling?");
             System.Console.WriteLine("2. Would you buy these?");
             System.Console.WriteLine("3. I'm good, thank you!");
         }
-        static void SellItem(string[] pocket, string[] items, int[] nookBuy, ref int bells)
+        static void SellItem(string[] pocket, string[] items, int[] nookBuy, int[] bells)
         {
 
             int verify = 0;
             while (verify != -1)
             {
+                Console.ForegroundColor= ConsoleColor.Green;
                 System.Console.WriteLine("What are you looking to sell?");
+                Console.ResetColor();
                 WritePockets(pocket);
+                Console.ForegroundColor= ConsoleColor.Green;
                 System.Console.WriteLine("... or would you like to STOP?");
+                Console.ResetColor();
                 string item = Console.ReadLine().ToUpper();
                 int pocketPosition = SearchPocket(pocket, item);
                 if (pocketPosition != -1)
                 {
-                    pocket[pocketPosition] = null;
-                    int sellValue = GiveBells(items, nookBuy, ref bells, item);
+                    pocket[pocketPosition] = "";
+                    int sellValue = GiveBells(items, nookBuy, bells, item);
+                    Console.ForegroundColor= ConsoleColor.Green;
                     System.Console.WriteLine($"Thank you. Here's {sellValue} bells!");
+                    Console.ResetColor();
                     verify = KeepShopMenuing("sell");
                 }
                 else if (item == "STOP")
                 {
+                    Console.ForegroundColor= ConsoleColor.Green;
                     System.Console.WriteLine("No problem!");
+                    Console.ResetColor();
                     verify = -1;
                 }
                 else
@@ -297,20 +314,24 @@ namespace Console_Crossing
                 }
             }
         }
-        static void BuyItem(string[] pocket, string[] items, int[] nookSell, ref int bells)
+        static void BuyItem(string[] pocket, string[] items, int[] nookSell, int[] bells)
         {
             string boughtItem = "";
             int verify = 0;
             while (boughtItem.ToUpper() != "STOP" && verify != -1)
             {
+                Console.ForegroundColor= ConsoleColor.Green;
                 System.Console.WriteLine("What can I get for you?");
+                Console.ResetColor();
                 int check = ItemsForSale(items, nookSell);
+                Console.ForegroundColor= ConsoleColor.Green;
                 System.Console.WriteLine("...Or would you like to STOP?");
+                Console.ResetColor();
                 boughtItem = Console.ReadLine();
                 Console.Clear();
                 if (boughtItem.ToUpper() != "STOP")
                 {
-                    int foundItem = TakeBells(items, nookSell, ref bells, boughtItem, check);
+                    int foundItem = TakeBells(items, nookSell, bells, boughtItem, check);
                     if (foundItem == 0)
                     {
                         AddInventory(pocket, boughtItem);
@@ -318,11 +339,15 @@ namespace Console_Crossing
                     }
                     else if (foundItem == 1)
                     {
+                        Console.ForegroundColor= ConsoleColor.Green;
                         System.Console.WriteLine("I'm sorry, you don't have enough bells...");
+                        Console.ResetColor();
                     }
                     else
                     {
+                        Console.ForegroundColor= ConsoleColor.Green;
                         System.Console.WriteLine("Sorry, what was that?");
+                        Console.ResetColor();
                     }
                 }
             }
@@ -342,7 +367,9 @@ namespace Console_Crossing
             int verify = 1;
             while (verify > 0)
             {
+                Console.ForegroundColor= ConsoleColor.Green;
                 System.Console.WriteLine($"Do you have more to {action}?");
+                Console.ResetColor();
                 System.Console.WriteLine("1. Yes");
                 System.Console.WriteLine("2. No");
                 string userInput = Console.ReadLine();
@@ -357,18 +384,20 @@ namespace Console_Crossing
                 }
                 else
                 {
-
+                    Console.ForegroundColor= ConsoleColor.Green;
                     System.Console.WriteLine("I'm sorry, what was that?");
-
+                    Console.ResetColor();
                 }
             }
             return verify;
         }
         //Redd Shop
-        static void ReddShop(string[] character, string[] pocket, int bells)
+        static void ReddShop(string[] character, string[] pocket, int[] bells)
         {
             string userInput = "";
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             System.Console.WriteLine($"Welcome, cuz! Hmmm? {character[1]} is your name? \nOh, we don't worry about that. Everyone is a cousin here, cuz.\n Welcome to Redd's Shop of Magic and Mystery!!! What can I do for ya'?");
+            Console.ResetColor();
             while (userInput != "4")
             {
                 ReddMenu();
@@ -377,20 +406,29 @@ namespace Console_Crossing
                 switch (userInput)
                 {
                     case "1":
+                        ReddExplain();
                         break;
                     case "2":
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                         System.Console.WriteLine("...Why, of course we can play a little game!");
+                        Console.ResetColor();
                         ReddOffer(pocket, bells);
                         break;
                     case "3":
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                         System.Console.WriteLine("A tree you say!");
-                        ReddTreesConfirm(ref bells);
+                        Console.ResetColor();
+                        ReddTreesConfirm(bells);
                         break;
                     case "4":
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                         System.Console.WriteLine($"Well, I'm sorry to see you go, but feel free to return... \nfor as long as I'm still in {character[5]}.");
+                        Console.ResetColor();
                         break;
                     default:
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                         System.Console.WriteLine("Sorry, what was that, cuz?");
+                        Console.ResetColor();
                         break;
                 }
             }
@@ -402,10 +440,12 @@ namespace Console_Crossing
             System.Console.WriteLine("3. Can you help me with a tree?");
             System.Console.WriteLine("4. I think that I'll go...");
         }
-        static void ReddOffer(string[] pocket, int bells)
+        static void ReddOffer(string[] pocket, int[] bells)
         {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             System.Console.WriteLine("Let's play... Higer or Lower! The most popular game this side of the Great Sea! \nHere's the rules, cuz. I'll flip a card over in front of ya' and you'll\n say whether you think the next card in my deck here is higher or lower\n and don't worry, I'll make sure to shuffle real nice, heh. All good games have some stakes though,\n How's about we wager something from ya' pockets! I'll buy it for double it's value if\n you win! Else, it's all mine, cuz!");
             System.Console.WriteLine("Press any key to let me know you're ready!");
+            Console.ResetColor();
             Console.ReadKey();
             Console.Clear();
             Random r = new Random();
@@ -422,17 +462,19 @@ namespace Console_Crossing
                 int pocketPosition = SearchPocket(pocket, item);
                 if (pocketPosition != -1)
                 {
-                    pocket[pocketPosition] = null;
+                    pocket[pocketPosition] = "";
                     bool win = ReddGame();
                     if (win == true)
                     {
-                        GiveBells(items, reddBuy, ref bells, item);
+                        GiveBells(items, reddBuy, bells, item);
                     }
                     verify = -1;
                 }
                 else if (item == "STOP")
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     System.Console.WriteLine("No problem!");
+                    Console.ResetColor();
                     verify = -1;
                 }
                 else
@@ -443,31 +485,39 @@ namespace Console_Crossing
         }
         static void ReddExplain()
         {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             System.Console.WriteLine("This is Redd's Shop of Magic and Mystery, cuz!\nI tend to drift into town about every Sunday or\nso to provide my services to my favorite town of... whatever this place is!\nSo, take a look around, don't be shy and remember my motto\n'Satisfaction guaranteed, so there's no need for a refund!'");
+            Console.ResetColor();
         }
-        static void ReddTreesConfirm(ref int bells)
+        static void ReddTreesConfirm(int[] bells)
         {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             System.Console.WriteLine("I should be able to help, cuz. For a reasonable fee of course. Should cost ya, say, 20,000 Bells. What do ya think?");
+            Console.ResetColor();
             System.Console.WriteLine("1. Yes");
             System.Console.WriteLine("2. No");
             string userInput = Console.ReadLine();
             Console.Clear();
-            if (bells < 20000)
+            if (bells[0] < 20000)
             {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 System.Console.WriteLine("Hmmm, I think there's a misundertanding, cuz. I would do anything for ya, but you've got to\nhelp me out here! Come back when you have the Bells!");
+                Console.ResetColor();
             }
-            while (userInput != "2" && bells >= 20000)
+            while (userInput != "2" && bells[0] >= 20000)
             {
                 switch (userInput)
                 {
                     case "1":
-                        ReddTrees(ref bells);
+                        ReddTrees(bells);
                         userInput = "2";
                         break;
                     case "2":
                         break;
                     default:
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
                         System.Console.WriteLine("Come again, cuz?");
+                        Console.ResetColor();
                         System.Console.WriteLine("1. Yes");
                         System.Console.WriteLine("2. No");
                         userInput = Console.ReadLine();
@@ -476,7 +526,7 @@ namespace Console_Crossing
                 }
             }
         }
-        static void ReddTrees(ref int bells)
+        static void ReddTrees(int[] bells)
         {
             FruitTrees[] plantedTrees = new FruitTrees[32];
             LoadFruit(plantedTrees);
@@ -485,7 +535,9 @@ namespace Console_Crossing
             {
                 string[] types = new string[10];
                 int count = GetAllFish(types, "fruittrees.txt");
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 System.Console.WriteLine("What type of tree do you want?");
+                Console.ResetColor();
                 for (int i = 0; i < count; i++)
                 {
                     System.Console.WriteLine(types[i]);
@@ -502,13 +554,17 @@ namespace Console_Crossing
                 f.SetYear(temp[0]);
                 f.SetExists(true);
                 plantedTrees[space] = f;
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 System.Console.WriteLine($"There you go cuz, you should be getting a {plantedTrees[space].GetTreeType()} tree. No refunds!");
-                bells = bells - 20000;
+                Console.ResetColor();
+                bells[0] = bells[0] - 20000;
                 SaveFruit(plantedTrees);
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 System.Console.WriteLine("Sorry, cuz. I'm not sure you have the space for another tree.");
+                Console.ResetColor();
             }
         }
         static void CheckTreeSelection(string[] types, ref string treeType, int count)
@@ -525,7 +581,9 @@ namespace Console_Crossing
                 }
                 if (verify == false)
                 {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
                     System.Console.WriteLine("Sorry, what type of tree do you want?");
+                    Console.ResetColor();
                     for (int i = 0; i < count; i++)
                     {
                         System.Console.WriteLine(types[i]);
@@ -563,7 +621,9 @@ namespace Console_Crossing
             Console.Clear();
             while (userInput != "1" && userInput != "2")
             {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 System.Console.WriteLine("Sorry cuz, ya gotta make a choice.");
+                Console.ResetColor();
                 ReddGameMenu(deck, m);
                 userInput = Console.ReadLine();
                 Console.Clear();
@@ -571,8 +631,10 @@ namespace Console_Crossing
             if (deckValues[m] < deckValues[m + 1] && userInput == "1")
             {
                 win = true;
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 System.Console.WriteLine("Hmph. Well done, I guess.");
                 System.Console.WriteLine($"The next card is a {deck[m + 1]}.");
+                Console.ResetColor();
                 System.Console.WriteLine("(Press any key to continue)");
                 Console.ReadKey();
                 Console.Clear();
@@ -580,8 +642,10 @@ namespace Console_Crossing
             else if (deckValues[m] > deckValues[m + 1] && userInput == "2")
             {
                 win = true;
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 System.Console.WriteLine("A lucky guess...");
                 System.Console.WriteLine($"The next card is a {deck[m + 1]}.");
+                Console.ResetColor();
                 System.Console.WriteLine("(Press any key to continue)");
                 Console.ReadKey();
                 Console.Clear();
@@ -589,16 +653,20 @@ namespace Console_Crossing
             else if (deckValues[m] == deckValues[m + 1])
             {
                 win = false;
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 System.Console.WriteLine("Well, that's just bad luck, cuz!");
                 System.Console.WriteLine($"The next card is a {deck[m + 1]}.");
+                Console.ResetColor();
                 System.Console.WriteLine("(Press any key to continue)");
                 Console.ReadKey();
                 Console.Clear();
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
                 System.Console.WriteLine("Shoot! That's a real shame, cuz! I hate to see it");
                 System.Console.WriteLine($"The next card is a {deck[m + 1]}.");
+                Console.ResetColor();
                 System.Console.WriteLine("(Press any key to continue)");
                 Console.ReadKey();
                 Console.Clear();
@@ -636,40 +704,67 @@ namespace Console_Crossing
         }
         static void ReddGameMenu(string[] deck, int m)
         {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             System.Console.WriteLine($"The face up card is {deck[m]}. Do you think the next card is higher or lower?");
+            Console.ResetColor();
             System.Console.WriteLine("1. Higher");
             System.Console.WriteLine("2. Lower");
         }
         //Fishing
         static void FishingRoute(int[] date, string[] character, string[] pocket)
         {
+            bool verify = false;
             string userInput = "";
             string fishingLocation = "";
-            while (userInput != "3")
+            while (verify == false)
             {
                 System.Console.WriteLine("Where should I go fishing?");
+                int hasLure = SearchPocket(pocket, "Ocean Lure");
                 System.Console.WriteLine("1. The River");
-                System.Console.WriteLine("2. The Sea");
-                System.Console.WriteLine("3. Quit");
-                userInput = Console.ReadLine();
-                Console.Clear();
-                switch (userInput)
+                if (hasLure != -1)
                 {
-                    case "1":
-                        fishingLocation = "riverfish.txt";
-                        FishingMinigame(pocket, fishingLocation);
-                        break;
-                    case "2":
-                        fishingLocation = "seafish.txt";
-                        FishingMinigame(pocket, fishingLocation);
-                        break;
-                    case "3":
-                        System.Console.WriteLine("I think I'll head back");
-                        break;
-                    default:
-                        System.Console.WriteLine("Hmm, I'm not quite sure...");
-                        break;
-
+                    System.Console.WriteLine("2. The Sea");
+                    System.Console.WriteLine("3. Quit");
+                    userInput = Console.ReadLine();
+                    Console.Clear();
+                    switch (userInput)
+                    {
+                        case "1":
+                            fishingLocation = "riverfish.txt";
+                            FishingMinigame(pocket, fishingLocation);
+                            break;
+                        case "2":
+                            fishingLocation = "seafish.txt";
+                            FishingMinigame(pocket, fishingLocation);
+                            break;
+                        case "3":
+                            System.Console.WriteLine("I think I'll head back");
+                            verify = true;
+                            break;
+                        default:
+                            System.Console.WriteLine("Hmm, I'm not quite sure...");
+                            break;
+                    }
+                }
+                else
+                {
+                    System.Console.WriteLine("2. Quit");
+                    userInput = Console.ReadLine();
+                    Console.Clear();
+                    switch (userInput)
+                    {
+                        case "1":
+                            fishingLocation = "riverfish.txt";
+                            FishingMinigame(pocket, fishingLocation);
+                            break;
+                        case "2":
+                            System.Console.WriteLine("I think I'll head back");
+                            verify = true;
+                            break;
+                        default:
+                            System.Console.WriteLine("Hmm, I'm not quite sure...");
+                            break;
+                    }
                 }
             }
         }
@@ -836,7 +931,7 @@ namespace Console_Crossing
                         Console.Clear();
                         if (userInput.ToLower() != "stop")
                         {
-                            int input = int.Parse(userInput);
+                            int input = int.Parse(userInput) - 1;
                             if (plantedTrees[input].GetExists() == true)
                             {
                                 if (plantedTrees[input].GetTreeType() != "nothing")
@@ -895,13 +990,14 @@ namespace Console_Crossing
             {
                 AddInventory(pockets, temp);
             }
+            tree.UpdatePick();
         }
-        static void PlantTrees(FruitTrees[] plantedTrees, string [] pocket)
+        static void PlantTrees(FruitTrees[] plantedTrees, string[] pocket)
         {
-            int pocketPosition= SearchPocket(pocket, "sapling");
-            if ( pocketPosition!= -1)
+            int pocketPosition = SearchPocket(pocket, "sapling");
+            if (pocketPosition != -1)
             {
-                pocket[pocketPosition] = null;
+                pocket[pocketPosition] = "";
                 int space = SearchSpace(plantedTrees);
                 if (space != -1)
                 {
@@ -942,7 +1038,7 @@ namespace Console_Crossing
                 System.Console.WriteLine("Here are the trees I have. What plot should I get dig up?");
                 WriteOrchard(plantedTrees);
                 System.Console.WriteLine("... or should I STOP?");
-                int plot = int.Parse(Console.ReadLine());
+                int plot = int.Parse(Console.ReadLine()) - 1;
                 string searchVal = plantedTrees[plot].GetTreeType();
                 int pocketPosition = SearchPocket(plantedTrees, searchVal);
                 if (pocketPosition != -1)
@@ -987,20 +1083,21 @@ namespace Console_Crossing
             }
         }
         //Pockets
-        static void CheckPockets(string[] pocket, int bells)
+        static void CheckPockets(string[] pocket, int[] bells)
         {
             System.Console.WriteLine("Let's see here...");
             WritePockets(pocket);
-            System.Console.WriteLine($"I currently have {bells} bells.");
+            System.Console.WriteLine($"I currently have {bells[0]} bells.");
             System.Console.WriteLine("(Press Any Key To Continue)");
             Console.ReadKey();
+            Console.Clear();
         }
         static void WritePockets(string[] pocket)
         {
             int j = 0;
             for (int i = 0; i < 32; i++)
             {
-                if (pocket[i] != null)
+                if (pocket[i] != "")
                 {
                     if (pocket[i].Length <= 6)
                     {
@@ -1054,7 +1151,7 @@ namespace Console_Crossing
             int pocketPosition = -1;
             for (int i = 0; i < 32; i++)
             {
-                if (pocket[i] == null)
+                if (pocket[i] == "")
                 {
                     pocketPosition = i;
                     return pocketPosition;
@@ -1130,7 +1227,6 @@ namespace Console_Crossing
                 }
             }
         }
-
         //General Functions
         static void GetDate(int[] date)
         {
@@ -1230,26 +1326,26 @@ namespace Console_Crossing
                 System.Console.WriteLine($"The current time is {date[4]}:{date[5]}");
             }
         }
-        static int GiveBells(string[] items, int[] nookBuy, ref int bells, string item)
+        static int GiveBells(string[] items, int[] nookBuy, int[] bells, string item)
         {
             for (int i = 0; i < 54; i++)
             {
                 if (items[i].ToLower() == item.ToLower())
                 {
-                    bells = bells + nookBuy[i];
+                    bells[0] = bells[0] + nookBuy[i];
                     return nookBuy[i];
                 }
             }
-            return bells;
+            return 0;
         }
-        static int TakeBells(string[] items, int[] nookSell, ref int bells, string item, int check)
+        static int TakeBells(string[] items, int[] nookSell, int[] bells, string item, int check)
         {
             int verify = -1;
             for (int i = 0; i < check; i++)
             {
-                if (items[i] == item && bells > nookSell[i])
+                if (items[i] == item && bells[0] > nookSell[i])
                 {
-                    bells = bells - nookSell[i];
+                    bells[0] = bells[0] - nookSell[i];
                     verify = 0;
                 }
                 else if (items[i] == item)

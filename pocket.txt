@@ -1,33 +1,33 @@
-Crucian Carp
 
 
-Koi
-Goldfish
-Frog
-Tadpole
-Yellow Perch
-Black Bass
-Tilapia
-Pike
-Cherry Salmon
-Salmon
-Rainbow Fish
-Gar
-Arowanda
-Betta
-Anglefish
-Catfish
-Guppy
-Sea Butterfly
-Sea Horse
-Clownfish
-Sturgeon
-Blowfish
-Pufferfish
-Horse Mackerel
-Sea Bass
-Red Snapper
-Flounder
-Olive Flounder
 
-500
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+0

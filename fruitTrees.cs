@@ -75,5 +75,12 @@ namespace Console_Crossing
             }
             return verify;
         }
+        public void UpdatePick()
+        {
+            DateTime currentDate = DateTime.Now;
+            SetDay(currentDate.Day);
+            SetMonth(currentDate.Month);
+            SetYear(currentDate.Year);
+        }
     }
 }
