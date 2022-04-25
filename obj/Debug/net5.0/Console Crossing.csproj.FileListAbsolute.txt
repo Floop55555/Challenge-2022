@@ -1,0 +1,32 @@
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Console Crossing\bin\Debug\net5.0\Console Crossing.exe
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Console Crossing\bin\Debug\net5.0\Console Crossing.deps.json
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Console Crossing\bin\Debug\net5.0\Console Crossing.runtimeconfig.json
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Console Crossing\bin\Debug\net5.0\Console Crossing.runtimeconfig.dev.json
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Console Crossing\bin\Debug\net5.0\Console Crossing.dll
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Console Crossing\bin\Debug\net5.0\ref\Console Crossing.dll
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Console Crossing\bin\Debug\net5.0\Console Crossing.pdb
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Console Crossing\obj\Debug\net5.0\Console Crossing.csproj.AssemblyReference.cache
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Console Crossing\obj\Debug\net5.0\Console Crossing.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Console Crossing\obj\Debug\net5.0\Console Crossing.AssemblyInfoInputs.cache
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Console Crossing\obj\Debug\net5.0\Console Crossing.AssemblyInfo.cs
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Console Crossing\obj\Debug\net5.0\Console Crossing.csproj.CoreCompileInputs.cache
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Console Crossing\obj\Debug\net5.0\Console Crossing.dll
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Console Crossing\obj\Debug\net5.0\ref\Console Crossing.dll
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Console Crossing\obj\Debug\net5.0\Console Crossing.pdb
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Console Crossing\obj\Debug\net5.0\Console Crossing.genruntimeconfig.cache
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Challenge-2022\bin\Debug\net5.0\Console Crossing.exe
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Challenge-2022\bin\Debug\net5.0\Console Crossing.deps.json
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Challenge-2022\bin\Debug\net5.0\Console Crossing.runtimeconfig.json
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Challenge-2022\bin\Debug\net5.0\Console Crossing.runtimeconfig.dev.json
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Challenge-2022\bin\Debug\net5.0\Console Crossing.dll
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Challenge-2022\bin\Debug\net5.0\ref\Console Crossing.dll
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Challenge-2022\bin\Debug\net5.0\Console Crossing.pdb
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Challenge-2022\obj\Debug\net5.0\Console Crossing.csproj.AssemblyReference.cache
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Challenge-2022\obj\Debug\net5.0\Console Crossing.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Challenge-2022\obj\Debug\net5.0\Console Crossing.AssemblyInfoInputs.cache
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Challenge-2022\obj\Debug\net5.0\Console Crossing.AssemblyInfo.cs
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Challenge-2022\obj\Debug\net5.0\Console Crossing.csproj.CoreCompileInputs.cache
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Challenge-2022\obj\Debug\net5.0\Console Crossing.dll
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Challenge-2022\obj\Debug\net5.0\ref\Console Crossing.dll
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Challenge-2022\obj\Debug\net5.0\Console Crossing.pdb
+C:\Users\maxim\OneDrive\Desktop\Source\Repose\Challenge-2022\obj\Debug\net5.0\Console Crossing.genruntimeconfig.cache

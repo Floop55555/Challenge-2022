@@ -1,0 +1,54 @@
+Sapling#10000#50000
+Ocean Lure#20000#100000
+Honey Pot#200#1000
+Crucian Carp#160#0
+Dace#240#0
+Carp#300#0
+Koi#4000#0
+Goldfish#1300#0
+Frog#120#0
+Tadpole#100#0
+Yellow Perch#300#0
+Black Bass#400#0
+Tilapia#800#0
+Pike#1800#0
+Cherry Salmon#1000#0
+Salmon#700#0
+Rainbow Fish#800#0
+Gar#6000#0
+Arowanda#10000#0
+Betta#2500#0
+Anglefish#3000#0
+Catfish#800#0
+Guppy#1300#0
+Sea Butterfly#1000#0
+Sea Horse#1100#0
+Clownfish#650#0
+Sturgeon#1000#0
+Blowfish#5000#0
+Pufferfish#250#0
+Horse Mackerel#150#0
+Sea Bass#400#0
+Red Snapper#3000#0
+Dab#300#0
+Olive Flounder#800#0
+Squid#500#0
+Tuna#7000#0
+Ray#3000#0
+Great White Shark#15000#0
+Whale Shark#13000#0
+Football Fish#2500#0
+Oarfish#9000#0
+Barreleye#15000#0
+Coelacanth#15000#0
+Golden Beetle#10000#0
+Apple#200#0
+Orange#200#0
+Pear#200#0
+Cherry#200#0
+Peach#200#0
+Banana#200#0
+Durian#200#0
+Lychee#200#0
+Coconut#200#0
+Persimmon#200#0
